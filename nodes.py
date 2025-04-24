@@ -720,6 +720,7 @@ class Florence2RunCaption:
         out_masks = []
         out_results = []
         out_data = []
+        pbar = ProgressBar(len(images))
         for file in images:
             print("Processing file: ", file)
             image_pil = images[file]
