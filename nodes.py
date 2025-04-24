@@ -667,7 +667,6 @@ class Florence2RunCaption:
     def encode(self, text_input, florence2_model, task, fill_mask, keep_model_loaded=False, 
             num_beams=3, max_new_tokens=1024, do_sample=True, output_mask_select="", input_folder= "", seed=None):
         device = mm.get_torch_device()
-        _, height, width, _ = image.shape
         offload_device = mm.unet_offload_device()
         annotated_image_tensor = None
         mask_tensor = None
@@ -721,9 +720,9 @@ class Florence2RunCaption:
         out_masks = []
         out_results = []
         out_data = []
-        pbar = ProgressBar(len(image))
         for file in images:
             image_pil = images[file]
+            height, width= image_pil.size
             inputs = processor(text=prompt, images=image_pil, return_tensors="pt", do_rescale=False).to(dtype).to(device)
 
             generated_ids = model.generate(
