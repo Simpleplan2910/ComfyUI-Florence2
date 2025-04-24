@@ -1009,7 +1009,7 @@ class Florence2RunCaption:
             mm.soft_empty_cache()
         
         return (out_tensor, out_mask_tensor, out_results, out_data)
-class RgthreeDisplayAny:
+class DisplayAny:
   """Display any data node."""
 
   NAME ='Display Any'
@@ -1046,11 +1046,13 @@ NODE_CLASS_MAPPINGS = {
     "Florence2ModelLoader": Florence2ModelLoader,
     "Florence2Run": Florence2Run,
     "Florence2RunCaption" : Florence2RunCaption,
+    "DisplayAny" : DisplayAny
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
     "DownloadAndLoadFlorence2Model": "DownloadAndLoadFlorence2Model",
     "DownloadAndLoadFlorence2Lora": "DownloadAndLoadFlorence2Lora",
     "Florence2ModelLoader": "Florence2ModelLoader",
     "Florence2Run": "Florence2Run",
-    "Florence2RunCaption": "Florence2RunCaption"
+    "Florence2RunCaption": "Florence2RunCaption",
+    "DisplayAny" : "DisplayAny"
 }
