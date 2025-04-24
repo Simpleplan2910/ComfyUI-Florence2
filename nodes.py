@@ -751,7 +751,7 @@ class Florence2RunCaption:
 
             out_results.append(clean_results)
             #save results to file
-            output_file = os.path.join(input_folder, f"{file.split(".")[0]}.txt")
+            output_file = os.path.join(input_folder, f"{file.split('.')}.txt")
             with open(output_file, "w") as f:
                 f.write(clean_results)
 
