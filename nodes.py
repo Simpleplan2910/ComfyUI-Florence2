@@ -664,7 +664,7 @@ class Florence2RunCaption:
         # Ensure the hashed seed is within the acceptable range for set_seed
         return hashed_seed % (2**32)
 
-    def encode(self, image, text_input, florence2_model, task, fill_mask, keep_model_loaded=False, 
+    def encode(self, text_input, florence2_model, task, fill_mask, keep_model_loaded=False, 
             num_beams=3, max_new_tokens=1024, do_sample=True, output_mask_select="", input_folder= "", seed=None):
         device = mm.get_torch_device()
         _, height, width, _ = image.shape
