@@ -721,6 +721,7 @@ class Florence2RunCaption:
         out_results = []
         out_data = []
         for file in images:
+            print("Processing file: ", file)
             image_pil = images[file]
             height, width= image_pil.size
             inputs = processor(text=prompt, images=image_pil, return_tensors="pt", do_rescale=False).to(dtype).to(device)
@@ -749,7 +750,7 @@ class Florence2RunCaption:
 
             out_results.append(clean_results)
             #save results to file
-            output_file = os.path.join(input_folder, f"{file}.txt")
+            output_file = os.path.join(input_folder, f"{file.split(".")[0]}.txt")
             with open(output_file, "w") as f:
                 f.write(clean_results)
 
