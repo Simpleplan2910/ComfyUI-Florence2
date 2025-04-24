@@ -2,6 +2,7 @@ from collections.abc import Callable
 import torch
 import torchvision.transforms.functional as F
 import io
+import json
 import os
 import matplotlib
 matplotlib.use('Agg')   
@@ -1008,7 +1009,36 @@ class Florence2RunCaption:
             mm.soft_empty_cache()
         
         return (out_tensor, out_mask_tensor, out_results, out_data)
- 
+class RgthreeDisplayAny:
+  """Display any data node."""
+
+  NAME ='Display Any'
+  CATEGORY = "Florence2"
+
+  @classmethod
+  def INPUT_TYPES(cls):  # pylint: disable = invalid-name, missing-function-docstring
+    return {
+      "required": {
+        "source": (any, {}),
+      },
+    }
+
+  RETURN_TYPES = ()
+  FUNCTION = "main"
+  OUTPUT_NODE = True
+
+  def main(self, source=None):
+    value = 'None'
+    if source is not None:
+      try:
+        value = json.dumps(source)
+      except Exception:
+        try:
+          value = str(source)
+        except Exception:
+          value = 'source exists, but could not be serialized.'
+
+    return {"ui": {"text": (value,)}} 
 
 NODE_CLASS_MAPPINGS = {
     "DownloadAndLoadFlorence2Model": DownloadAndLoadFlorence2Model,
