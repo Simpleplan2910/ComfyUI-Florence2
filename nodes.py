@@ -823,7 +823,7 @@ class Florence2RunCaption:
 
                     # Add the rectangle to the plot
                     ax.add_patch(rect)
-                    facecolor = random.choice(colormap) if len(image) == 1 else 'red'
+                    facecolor = random.choice(colormap) if len(images) == 1 else 'red'
                     # Add the label
                     plt.text(
                         text_x,
@@ -985,7 +985,7 @@ class Florence2RunCaption:
                 results = processor.batch_decode(generated_ids, skip_special_tokens=False)[0]
                 clean_results = results.replace('</s>', '').replace('<s>', '')
                 
-                if len(image) == 1:
+                if len(images) == 1:
                     out_results = clean_results
                 else:
                     out_results.append(clean_results)
@@ -1009,50 +1009,18 @@ class Florence2RunCaption:
             mm.soft_empty_cache()
         
         return (out_tensor, out_mask_tensor, out_results, out_data)
-class DisplayAny:
-  """Display any data node."""
-
-  NAME ='Display Any'
-  CATEGORY = "Florence2"
-
-  @classmethod
-  def INPUT_TYPES(cls):  # pylint: disable = invalid-name, missing-function-docstring
-    return {
-      "required": {
-        "source": (any, {}),
-      },
-    }
-
-  RETURN_TYPES = ()
-  FUNCTION = "main"
-  OUTPUT_NODE = True
-
-  def main(self, source=None):
-    value = 'None'
-    if source is not None:
-      try:
-        value = json.dumps(source)
-      except Exception:
-        try:
-          value = str(source)
-        except Exception:
-          value = 'source exists, but could not be serialized.'
-
-    return {"ui": {"text": (value,)}} 
-
+    
 NODE_CLASS_MAPPINGS = {
     "DownloadAndLoadFlorence2Model": DownloadAndLoadFlorence2Model,
     "DownloadAndLoadFlorence2Lora": DownloadAndLoadFlorence2Lora,
     "Florence2ModelLoader": Florence2ModelLoader,
     "Florence2Run": Florence2Run,
-    "Florence2RunCaption" : Florence2RunCaption,
-    "DisplayAny" : DisplayAny
+    "Florence2RunCaption" : Florence2RunCaption
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
     "DownloadAndLoadFlorence2Model": "DownloadAndLoadFlorence2Model",
     "DownloadAndLoadFlorence2Lora": "DownloadAndLoadFlorence2Lora",
     "Florence2ModelLoader": "Florence2ModelLoader",
     "Florence2Run": "Florence2Run",
-    "Florence2RunCaption": "Florence2RunCaption",
-    "DisplayAny" : "DisplayAny"
+    "Florence2RunCaption": "Florence2RunCaption"
 }
